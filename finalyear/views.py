@@ -99,7 +99,7 @@ def register(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account created successfully')
-            return redirect('register')
+            return HttpResponseRedirect(reverse('register'))
 
     else:
         f = CustomUserCreationForm()
