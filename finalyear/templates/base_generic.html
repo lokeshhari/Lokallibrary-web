@@ -24,6 +24,13 @@
           <li><a href="{% url 'books' %}">All books</a></li>
           <li><a href="">About us!</a></li>
         </ul>
+	      <div style="margin-left:20px; margin-top:20px; ">
+		<div class="search-container">
+    			<form method="get" action="{% url 'search' %}">
+      				<input type="text" placeholder="Search books" name="search">
+      				<button type="submit"><i class="fa fa-search"></i></button>
+    			</form>
+  		</div>
 	{% if user.is_authenticated %}
      		<li>User: {{ user.get_username }}</li>
      		<li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
@@ -33,13 +40,7 @@
    	{% endif %} 
 	</ul>
 	<hr style="height:2px;border-width:5px;">
-	<div style="margin-left:20px; margin-top:20px; ">
-		<div class="search-container">
-    			<form method="get" action="{% url 'search' %}">
-      				<input type="text" placeholder="Search books" name="search">
-      				<button type="submit"><i class="fa fa-search"></i></button>
-    			</form>
-  		</div>
+	
 	{% if user.is_staff %}
      		staff: {{ user.get_username }} <br>
 		<a href="{% url 'author_create' %}">Add Author</a><br>
