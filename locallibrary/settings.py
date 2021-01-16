@@ -26,7 +26,7 @@ SECRET_KEY = '8)j*&q9td9@3m(fzm(5(aie5uc&&$ql-t^w6q(fvvxh%(zmn$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lokallibrary.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -126,8 +126,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS= True
+EMAIL_HOST_USER='lokallibrary@gmail.com'
+EMAIL_HOST_PASSWORD = 'Hari@1999'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

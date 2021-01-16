@@ -1,6 +1,6 @@
 
 # Create your views here.
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
 from finalyear.models import Book, Author, Genre ,Language
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -99,9 +99,32 @@ def register(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account created successfully')
-            return HttpResponseRedirect(reverse('register'))
+            return redirect('register')
 
     else:
         f = CustomUserCreationForm()
 
     return render(request, 'finalyear/register.html', {'form': f})
+
+
+
+class SearchView(generic.ListView):
+    model = Book
+    template_name = 'finalyear/search.html'
+    context_object_name = 'all_search_results'
+
+    def get_queryset(self):
+        result = super(SearchView, self).get_queryset()
+        query = self.request.GET.get('search')
+        
+        if query:
+            postresult = Book.objects.filter(title__contains= query)
+            result = postresult
+        else:
+            result = None
+        
+        return result
+
+
+
+

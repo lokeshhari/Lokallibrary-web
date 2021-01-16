@@ -21,6 +21,12 @@ class CustomUserCreationForm(forms.Form):
         r = User.objects.filter(username=username)
         if r.count():
             raise  ValidationError("Username already exists")
+        c=0
+        for a in username:
+            if (a.isspace()):
+                c=1
+        if c:
+            raise ValidationError("Username shouldnot contain space")
         return username
 
     def clean_email(self):
@@ -34,6 +40,20 @@ class CustomUserCreationForm(forms.Form):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
+
+        if not any(char.isdigit() for char in password2):
+            raise ValidationError('Password should have at least one numeric characters') 
+
+        if not any(char.isupper() for char in password2):
+            raise ValidationError('Password should have at least one uppercase letter')
+
+        if not any(char.islower() for char in password2):
+            raise ValidationError('Password should have at least one lowercase letter')
+
+        if not any(char in SpecialSym for char in password2):
+            raise ValidationError('Password should have at least one of the symbols $@#') 
+
+       
         if password1 and password2 and password1 != password2:
             raise ValidationError("Password doesn't match")
 
