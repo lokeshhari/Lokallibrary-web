@@ -125,7 +125,7 @@ class SearchView(generic.ListView):
         query = self.request.GET.get('search')
         
         if query:
-            postresult = Book.objects.filter(title__contains= query)
+            postresult = Book.objects.filter(title__icontains= query)
             result = postresult
         else:
             result = None
