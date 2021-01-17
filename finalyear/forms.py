@@ -15,6 +15,7 @@ class CustomUserCreationForm(forms.Form):
     email = forms.EmailField(label='Enter email')
     password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    SpecialSym =['$', '@', '#', '%']
 
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
