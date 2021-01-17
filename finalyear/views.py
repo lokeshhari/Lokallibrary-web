@@ -116,13 +116,19 @@ class SearchView(generic.ListView):
     def get_queryset(self):
         result = super(SearchView, self).get_queryset()
         query = self.request.GET.get('search')
-        
+        querry1=query.upper()
         if query:
             postresult = Book.objects.filter(title__contains= query)
             result = postresult
         else:
             result = None
-        
+        if not result.exists():
+            postresult = Book.objects.filter(title__contains= query)
+            result = postresult
+         
+        if not result.exists():
+            postresult = Book.objects.filter(title__contains= query)
+            result = postresult
         return result
 
 
