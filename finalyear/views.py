@@ -147,9 +147,9 @@ class RequestDetailView(generic.DetailView):
     model = Request
     def request_detail_view(request, primary_key):
         try:
-            book = Author.objects.get(pk=primary_key)
+            book = Request.objects.get(pk=primary_key)
         except Request.DoesNotExist:
-            raise Http404('Author does not exist')
+            raise Http404('Request does not exist')
         
-        return render(request, 'finalyear/request_detail.html', context={'author': author})
+        return render(request, 'finalyear/request_detail.html')
 
