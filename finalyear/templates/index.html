@@ -6,9 +6,10 @@
   {% load static %}
   <h1>Lokal Library </h1><br>
   <p>Welcome to Local Library, a website developed by <em>Tech jargons</em>!</p><br>
-  <h3>Our services by this website</h2>
-  <p>  You can get some books that may help you </p>
-	<div style=" margin-bottom:50px;">
+  	<div style=" margin-bottom:50px;">
+<p>  Currently we have  {{ num_books }} <a href="{% url 'books' %}"> books </a> in {{num_genre }}  categories  written by  {{ num_authors}} <a href="{% url 'authors' %}">authors</a>.
+</p>
+<p> We also have books in {{num_langs}} languages.</p>
 	</div>
 
 <div style=" margin-bottom:50px;">

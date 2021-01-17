@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 import uuid
 from datetime import date
+from django.contrib.auth.models import User
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
@@ -56,3 +57,14 @@ class Language(models.Model):
 
     def __str__(self):
         return self.lang
+
+class Request(models.Model):
+    book_name=models.CharField(max_length=30)
+    class meta:
+        ordering=['book_name']
+
+    def __str__(self):
+        return self.book_name
+    def get_absolute_url(self):
+        return reverse('request-detail', args=[str(self.id)])
+

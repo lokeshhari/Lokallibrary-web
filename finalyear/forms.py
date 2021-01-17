@@ -4,7 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.forms import ModelForm
-from finalyear.models import Author,Book
+from finalyear.models import Author,Book,Request
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -15,7 +15,6 @@ class CustomUserCreationForm(forms.Form):
     email = forms.EmailField(label='Enter email')
     password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
-    
 
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
@@ -38,7 +37,6 @@ class CustomUserCreationForm(forms.Form):
         return email
 
     def clean_password2(self):
-        SpecialSym =['$', '@', '#', '%']
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 

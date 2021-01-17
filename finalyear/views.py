@@ -2,7 +2,7 @@
 # Create your views here.
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
-from finalyear.models import Book, Author, Genre ,Language
+from finalyear.models import Book, Author, Genre ,Language,Request
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
@@ -17,12 +17,19 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 
 def index(request):
-    
+    num_books = Book.objects.all().count()
+    num_authors = Author.objects.count()
+    num_langs= Language.objects.count()
+    num_genre=Genre.objects.count()
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
     
     context = {
         'num_visits': num_visits,
+        'num_authors':num_authors,
+        'num_langs':num_langs,
+        'num_genre':num_genre,
+        'num_books':num_books
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -99,7 +106,7 @@ def register(request):
         if f.is_valid():
             f.save()
             messages.success(request, 'Account created successfully')
-            return redirect('login')
+            return redirect('register')
 
     else:
         f = CustomUserCreationForm()
@@ -116,13 +123,33 @@ class SearchView(generic.ListView):
     def get_queryset(self):
         result = super(SearchView, self).get_queryset()
         query = self.request.GET.get('search')
+        
         if query:
-            postresult = Book.objects.filter(title__icontains= query)
+            postresult = Book.objects.filter(title__contains= query)
             result = postresult
         else:
             result = None
+        
         return result
 
 
 
+class book_request(LoginRequiredMixin,CreateView):
+    model = Request
+    fields = '__all__'
+
+class RequestListView(generic.ListView):
+    model = Request
+    template_name = 'books/my_arbitrary_template_name_list.html'  # Specify
+    paginate_by = 15
+
+class RequestDetailView(generic.DetailView):
+    model = Request
+    def request_detail_view(request, primary_key):
+        try:
+            book = Author.objects.get(pk=primary_key)
+        except Request.DoesNotExist:
+            raise Http404('Author does not exist')
+        
+        return render(request, 'finalyear/request_detail.html', context={'author': author})
 

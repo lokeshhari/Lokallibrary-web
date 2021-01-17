@@ -26,7 +26,7 @@ SECRET_KEY = '8)j*&q9td9@3m(fzm(5(aie5uc&&$ql-t^w6q(fvvxh%(zmn$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lokallibrary.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -143,4 +143,4 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-SECURE_SSL_REDIRECT=True
+
