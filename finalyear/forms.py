@@ -37,6 +37,7 @@ class CustomUserCreationForm(forms.Form):
         return email
 
     def clean_password2(self):
+        SpecialSym=['@','#','&','₹','_']
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
