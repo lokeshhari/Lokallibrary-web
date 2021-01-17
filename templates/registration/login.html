@@ -14,7 +14,13 @@
       <p>Please login to see this page.</p>
     {% endif %}
   {% endif %}
-  
+   
+        {% if messages %}
+            <ul>
+		        {% for message in messages %}
+        	        <li class="text-danger">{{ message }}</li>
+                	{% endfor %}
+	{% endif %}
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <table>
